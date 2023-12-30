@@ -1,0 +1,19 @@
+## react_blog_client
+
+### =========references===========
+-tutorials
+https://www.youtube.com/watch?v=LelifxOrzvw&t=839s
+
+
+
+### features/actions
+
+
+
+### technologies used
+
+
+### completed tasks
+
+
+### pending tasks
