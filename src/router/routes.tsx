@@ -8,6 +8,7 @@ import Write from "../pages/write/Write";
 import Settings from "../pages/settings/Settings";
 import Single from "../pages/single/Single";
 
+// FIXME: if we do not want to data loader we should use BrowserRouter instead
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+
       {
         path: "/register",
         element: <Register />,
