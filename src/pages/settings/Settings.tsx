@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
 import "./settings.css";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import { Navigate } from "react-router";
 import axios from "axios";
@@ -11,11 +13,11 @@ export default function Settings() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
-
+  // @ts-expect-error
   const { user, dispatch } = useContext(Context);
   const PF = "http://localhost:5000/images/";
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     dispatch({ type: "UPDATE_START" });
     const updatedUser = {
@@ -26,13 +28,17 @@ export default function Settings() {
     };
     if (file) {
       const data = new FormData();
+      //@ts-ignore
       const filename = Date.now() + file.name;
       data.append("name", filename);
       data.append("file", file);
+      //@ts-ignore
       updatedUser.profilePic = filename;
       try {
         await axios.post("http://localhost:5000/api/upload", data);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     }
     try {
       const res = await axios.put("http://localhost:5000/api/users/" + user._id, updatedUser);
@@ -54,6 +60,7 @@ export default function Settings() {
           <span className="settingsUpdateTitle">Update Your Account</span>
           <span className="settingsDeleteTitle">Delete Account</span>
         </div>
+
         <form className="settingsForm" onSubmit={handleSubmit}>
           <label>Profile Picture</label>
           <div className="settingsPP">
@@ -61,7 +68,7 @@ export default function Settings() {
             <label htmlFor="fileInput">
               <i className="settingsPPIcon far fa-user-circle"></i>
             </label>
-            <input type="file" id="fileInput" style={{ display: "none" }} onChange={(e) => setFile(e.target.files[0])} />
+            <input type="file" id="fileInput" style={{ display: "none" }} onChange={(e: ChangeEvent) => setFile(e.target?.files[0])} />
           </div>
           <label>Username</label>
           <input type="text" placeholder={user.username} onChange={(e) => setUsername(e.target.value)} />

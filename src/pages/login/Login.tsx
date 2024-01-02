@@ -1,21 +1,23 @@
 import axios from "axios";
-import { useContext, useRef } from "react";
+import { FormEvent, useContext, useRef } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./login.css";
 
 export default function Login() {
-  const userRef = useRef();
-  const passwordRef = useRef();
+  const userRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const { user, dispatch, isFetching } = useContext(Context);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", {
-        username: userRef.current.value,
-        password: passwordRef.current.value,
+        username: userRef.current?.value,
+        password: passwordRef.current?.value,
       });
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
     } catch (err) {

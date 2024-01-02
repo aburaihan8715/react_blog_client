@@ -1,8 +1,10 @@
-export const LoginStart = (userCredentials) => ({
+import { IUser } from "../../types/index";
+
+export const LoginStart = () => ({
   type: "LOGIN_START",
 });
 
-export const LoginSuccess = (user) => ({
+export const LoginSuccess = (user: IUser) => ({
   type: "LOGIN_SUCCESS",
   payload: user,
 });
@@ -15,11 +17,11 @@ export const Logout = () => ({
   type: "LOGOUT",
 });
 
-export const UpdateStart = (userCredentials) => ({
+export const UpdateStart = () => ({
   type: "UPDATE_START",
 });
 
-export const UpdateSuccess = (user) => ({
+export const UpdateSuccess = (user: IUser) => ({
   type: "UPDATE_SUCCESS",
   payload: user,
 });

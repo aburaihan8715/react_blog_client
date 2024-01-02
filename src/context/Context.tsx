@@ -7,6 +7,7 @@ const user = storedUser ? JSON.parse(storedUser) : null;
 const INITIAL_STATE = {
   user: user,
   error: false,
+  isFetching: true,
 };
 
 export const Context = createContext(INITIAL_STATE);
@@ -24,6 +25,8 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
         user: state.user,
         isFetching: state.isFetching,
         error: state.error,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         dispatch,
       }}
     >
