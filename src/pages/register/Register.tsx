@@ -21,7 +21,7 @@ export default function Register() {
         password,
       });
       // FIXME: better to use useNavigate() function
-      res.data && window.location.replace("/login");
+      res.data.data && window.location.replace("/login");
     } catch (err) {
       setError(true);
     }

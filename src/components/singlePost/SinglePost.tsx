@@ -19,9 +19,9 @@ export default function SinglePost() {
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get("http://localhost:5000/api/posts/" + path);
-      setPost(res.data);
-      setTitle(res.data.title);
-      setDesc(res.data.desc);
+      setPost(res.data.data);
+      setTitle(res.data.data.title);
+      setDesc(res.data.data.desc);
     };
     getPost();
   }, [path]);

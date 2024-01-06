@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./topbar.css";
 
 export default function TopBar() {
+  // @ts-ignore
   const { user, dispatch } = useContext(Context);
   const PF = "http://localhost:5000/images/";
 
@@ -25,16 +27,7 @@ export default function TopBar() {
               HOME
             </Link>
           </li>
-          <li className="topListItem">
-            <Link className="link" to="/">
-              ABOUT
-            </Link>
-          </li>
-          <li className="topListItem">
-            <Link className="link" to="/">
-              CONTACT
-            </Link>
-          </li>
+
           <li className="topListItem">
             <Link className="link" to="/write">
               WRITE
@@ -48,7 +41,11 @@ export default function TopBar() {
       <div className="topRight">
         {user ? (
           <Link to="/settings">
-            <img className="topImg" src={PF + user.profilePic} alt="" />
+            {user.profilePic ? (
+              <img className="topImg" src={PF + user.profilePic} alt="" />
+            ) : (
+              <img className="topImg" src="http://placehold.it/50x50" alt="" />
+            )}
           </Link>
         ) : (
           <ul className="topList">

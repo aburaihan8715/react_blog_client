@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ChangeEvent, ChangeEventHandler, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import "./write.css";
 import { Context } from "../../context/Context";
 import { Navigate } from "react-router";
@@ -9,6 +9,8 @@ export default function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [file, setFile] = useState(null);
+  const [categories, setCategories] = useState("");
+
   const { user } = useContext(Context);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -17,7 +19,9 @@ export default function Write() {
       username: user.username,
       title,
       desc,
+      categories,
     };
+
     if (file) {
       const data = new FormData();
       // @ts-ignore
@@ -32,10 +36,11 @@ export default function Write() {
         console.log(err);
       }
     }
+
     try {
       const res = await axios.post("http://localhost:5000/api/posts", newPost);
       // TODO: can be apply useNavigate() instead
-      window.location.replace("/post/" + res.data._id);
+      window.location.replace("/post/" + res.data.data._id);
     } catch (err) {
       console.log(err);
     }
@@ -47,7 +52,11 @@ export default function Write() {
 
   return (
     <div className="write">
-      {file && <img className="writeImg" src={URL.createObjectURL(file)} alt="" />}
+      {file ? (
+        <img className="writeImg" src={URL.createObjectURL(file)} alt="" />
+      ) : (
+        <img className="writeImg" src="http://placehold.it/500x300" alt="" />
+      )}
       <form className="writeForm" onSubmit={handleSubmit}>
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
@@ -56,12 +65,28 @@ export default function Write() {
           <input type="file" id="fileInput" style={{ display: "none" }} onChange={(e: ChangeEvent) => setFile(e.target?.files[0])} />
           <input type="text" placeholder="Title" className="writeInput" autoFocus={true} onChange={(e) => setTitle(e.target.value)} />
         </div>
+
         <div className="writeFormGroup">
           <textarea placeholder="Tell your story..." className="writeInput writeText" onChange={(e) => setDesc(e.target.value)}></textarea>
         </div>
-        <button className="writeSubmit" type="submit">
-          Publish
-        </button>
+
+        <div className="selectBox">
+          <select onChange={(e) => setCategories(e.target.value)} className="categories" defaultValue="" name="categories" id="categories">
+            <option value="" disabled>
+              select categories
+            </option>
+            <option value="fashions">fashions</option>
+            <option value="news">news</option>
+            <option value="sports">sports</option>
+            <option value="technologies">technologies</option>
+          </select>
+        </div>
+
+        <div className="btnBox">
+          <button className="writeSubmit" type="submit">
+            Publish
+          </button>
+        </div>
       </form>
     </div>
   );

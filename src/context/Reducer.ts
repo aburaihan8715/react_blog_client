@@ -1,6 +1,12 @@
-import { IUserAction, IUserState } from "../../types/index";
+import { Action, IUser } from "../../types/index";
 
-const Reducer = (state: IUserState, action: IUserAction) => {
+interface IContextValue {
+  user: IUser;
+  isFetching: boolean;
+  error: boolean;
+  dispatch: unknown;
+}
+const Reducer = (state: IContextValue, action: Action) => {
   switch (action.type) {
     case "LOGIN_START":
       return {
@@ -10,8 +16,6 @@ const Reducer = (state: IUserState, action: IUserAction) => {
       };
     case "LOGIN_SUCCESS":
       return {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         user: action.payload,
         isFetching: false,
         error: false,
@@ -29,8 +33,6 @@ const Reducer = (state: IUserState, action: IUserAction) => {
       };
     case "UPDATE_SUCCESS":
       return {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         user: action.payload,
         isFetching: false,
         error: false,

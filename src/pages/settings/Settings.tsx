@@ -43,7 +43,7 @@ export default function Settings() {
     try {
       const res = await axios.put("http://localhost:5000/api/users/" + user._id, updatedUser);
       setSuccess(true);
-      dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
+      dispatch({ type: "UPDATE_SUCCESS", payload: res.data.data });
     } catch (err) {
       dispatch({ type: "UPDATE_FAILURE" });
     }
@@ -64,7 +64,11 @@ export default function Settings() {
         <form className="settingsForm" onSubmit={handleSubmit}>
           <label>Profile Picture</label>
           <div className="settingsPP">
-            <img src={file ? URL.createObjectURL(file) : PF + user.profilePic} alt="" />
+            {(user.profilePic || file) && <img src={file ? URL.createObjectURL(file) : PF + user.profilePic} alt="" />}
+
+            {!user.profilePic && !file && <img src="http://placehold.it/80x80" alt="" />}
+
+            {/* <img src={file ? URL.createObjectURL(file) : PF + user.profilePic} alt="" /> */}
             <label htmlFor="fileInput">
               <i className="settingsPPIcon far fa-user-circle"></i>
             </label>

@@ -13,14 +13,19 @@ export default function Login() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    dispatch({ type: "LOGIN_START" });
+    // console.log(userRef.current?.value);
+    // console.log(passwordRef.current?.value);
+
     try {
+      dispatch({ type: "LOGIN_START" });
       const res = await axios.post("http://localhost:5000/api/auth/login", {
         username: userRef.current?.value,
         password: passwordRef.current?.value,
       });
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      // console.log(res.data.data);
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.data });
     } catch (err) {
+      console.log(err);
       dispatch({ type: "LOGIN_FAILURE" });
     }
   };

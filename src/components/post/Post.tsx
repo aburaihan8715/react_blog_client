@@ -5,14 +5,15 @@ import { Link } from "react-router-dom";
 export default function Post({ post }: { post: IPost }) {
   const PF = `http://localhost:5000/images/`;
   // const PF2 = `http://localhost:5000/images/${post.photo}`;
-  // console.log(PF2);
   return (
     <div className="post">
       {post.photo && <img className="postImg" src={PF + post.photo} alt="" />}
       <div className="postInfo">
         <div className="postCats">
           {post.categories?.map((c) => (
-            <span className="postCat">{c.name}</span>
+            <span key={Date.now().toString()} className="postCat">
+              {c.name}
+            </span>
           ))}
         </div>
         <Link to={`/post/${post._id}`} className="link">

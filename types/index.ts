@@ -4,10 +4,8 @@ interface IPost {
   desc: string;
   username: string;
   createdAt: string;
-  updatedAt: string;
   photo?: string;
   categories?: [{ name: string }];
-  _v: number;
 }
 
 interface IUser {
@@ -16,9 +14,7 @@ interface IUser {
   email: string;
   password: string;
   profilePic: string;
-  updatedAt: string;
   createdAt: string;
-  __v: number;
 }
 
 interface ICat {
@@ -32,15 +28,29 @@ interface IUserState {
   error: boolean;
 }
 
-type ActionWithPayload = {
-  type: "LOGIN_START" | "LOGIN_SUCCESS" | "LOGIN_FAILURE" | "UPDATE_START" | "UPDATE_SUCCESS" | "UPDATE_FAILURE" | "LOGOUT";
-  payload: IUserState;
-};
+type Action =
+  | { type: "LOGIN_START" }
+  | { type: "LOGIN_SUCCESS"; payload: IUserState }
+  | { type: "LOGIN_FAILURE" }
+  | { type: "UPDATE_START" }
+  | { type: "UPDATE_SUCCESS"; payload: IUserState }
+  | { type: "UPDATE_FAILURE" }
+  | { type: "LOGOUT" };
 
-type ActionWithoutPayload = {
-  type: "LOGIN_START" | "LOGIN_SUCCESS" | "LOGIN_FAILURE" | "UPDATE_START" | "UPDATE_SUCCESS" | "UPDATE_FAILURE" | "LOGOUT";
-};
+// interface IAction {
+//   type: "LOGIN_START" | "LOGIN_SUCCESS" | "LOGIN_FAILURE" | "UPDATE_START" | "UPDATE_SUCCESS" | "UPDATE_FAILURE" | "LOGOUT";
+//   payload?: IUserState;
+// }
 
-type IUserAction = ActionWithPayload | ActionWithoutPayload;
+// type ActionWithPayload = {
+//   type: "LOGIN_START" | "LOGIN_SUCCESS" | "LOGIN_FAILURE" | "UPDATE_START" | "UPDATE_SUCCESS" | "UPDATE_FAILURE" | "LOGOUT";
+//   payload?: IUserState;
+// };
 
-export type { IPost, ICat, IUserState, IUserAction, IUser };
+// type ActionWithoutPayload = {
+//   type: "LOGIN_START" | "LOGIN_SUCCESS" | "LOGIN_FAILURE" | "UPDATE_START" | "UPDATE_SUCCESS" | "UPDATE_FAILURE" | "LOGOUT";
+// };
+
+// type IUserAction = ActionWithPayload | ActionWithoutPayload;
+
+export type { IPost, ICat, IUserState, Action, IUser };

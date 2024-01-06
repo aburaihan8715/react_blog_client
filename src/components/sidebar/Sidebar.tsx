@@ -10,7 +10,7 @@ export default function Sidebar() {
   useEffect(() => {
     const getCats = async () => {
       const res = await axios.get("http://localhost:5000/api/categories");
-      setCats(res.data);
+      setCats(res.data.data);
     };
     getCats();
   }, []);
@@ -27,7 +27,7 @@ export default function Sidebar() {
       <div className="sidebarItem">
         <span className="sidebarTitle">CATEGORIES</span>
         <ul className="sidebarList">
-          {cats.map((c) => (
+          {cats?.map((c) => (
             <Link key={c._id} to={`/?cat=${c.name}`} className="link">
               <li className="sidebarListItem">{c.name}</li>
             </Link>
