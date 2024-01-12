@@ -8,7 +8,7 @@ import { Navigate } from "react-router";
 import axios from "axios";
 
 export default function Settings() {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +16,11 @@ export default function Settings() {
   // @ts-expect-error
   const { user, dispatch } = useContext(Context);
   const PF = "http://localhost:5000/images/";
+
+  const fileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    setFile(selectedFile || null);
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -72,7 +77,7 @@ export default function Settings() {
             <label htmlFor="fileInput">
               <i className="settingsPPIcon far fa-user-circle"></i>
             </label>
-            <input type="file" id="fileInput" style={{ display: "none" }} onChange={(e: ChangeEvent) => setFile(e.target?.files[0])} />
+            <input type="file" id="fileInput" style={{ display: "none" }} onChange={fileChangeHandler} />
           </div>
           <label>Username</label>
           <input type="text" placeholder={user.username} onChange={(e) => setUsername(e.target.value)} />

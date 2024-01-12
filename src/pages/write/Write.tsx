@@ -8,10 +8,15 @@ import axios from "axios";
 export default function Write() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [categories, setCategories] = useState("");
 
   const { user } = useContext(Context);
+
+  const fileChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    setFile(selectedFile || null);
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -62,7 +67,7 @@ export default function Write() {
           <label htmlFor="fileInput">
             <i className="writeIcon fas fa-plus"></i>
           </label>
-          <input type="file" id="fileInput" style={{ display: "none" }} onChange={(e: ChangeEvent) => setFile(e.target?.files[0])} />
+          <input type="file" id="fileInput" style={{ display: "none" }} onChange={fileChangeHandler} />
           <input type="text" placeholder="Title" className="writeInput" autoFocus={true} onChange={(e) => setTitle(e.target.value)} />
         </div>
 

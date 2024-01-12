@@ -7,16 +7,30 @@ https://www.youtube.com/watch?v=LelifxOrzvw&t=839s
 
 
 ### features/actions
+1.user
+  1.registration, login and logout
+  2.user can update profile(image,name,email, password)
+2.blog
+  1.create,update,delete
 
 
 
 ### technologies used
+1.react 
+2.typescript
+3.react router
+4.axios
+
+
+### global state management
+1.context + reducer + local storage
 
 
 ### completed tasks
 
 
 ### pending tasks
+1. admin feature
 
 
 
