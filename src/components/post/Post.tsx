@@ -2,6 +2,7 @@ import { IPost } from "../../../types/index";
 import "./post.css";
 import { Link } from "react-router-dom";
 
+// NOTE:FIXME:TODO:DOUBT:
 export default function Post({ post }: { post: IPost }) {
   const PF = `http://localhost:5000/images/`;
   // const PF2 = `http://localhost:5000/images/${post.photo}`;
